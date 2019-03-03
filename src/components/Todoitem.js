@@ -16,14 +16,19 @@ export class Todoitem extends Component {
     }
 
     render() {
+        // using destructuring, we can pull variables (i.e. id, title) to use from props.todo
+        const { id, title } = this.props.todo;
         return (
             // when doing inline css you need to use double squiggly brackets, unless you are using a variable then it is single squiggly brackets
             // <div style={{ backgroundColor: "#f4f4f4" }}>
             <div style={ this.getStyle() }>
                 <p>
-                {/* when a checkbox is selected this.props.markComplete is called and goes up a level to the Todos class in Todos file */}
-                    <input type='checkbox' onChange={this.props.markComplete} /> {' '}
-                    { this.props.todo.title }
+                {/* when a checkbox is selected this.props.markComplete is called and goes up a level (using .props) to the Todos class in Todos file */}
+                    <input type='checkbox' onChange={this.props.markComplete.bind(this, this.props.todo.id)} /> {' '}
+                    { title }
+                    
+                    {/* create a button to be able to delete a task (button css below) */}
+                    <button onClick={this.props.delTodo.bind(this, id)} style={btnStyle}>x</button>
                 </p>
             </div>
             
@@ -34,6 +39,16 @@ export class Todoitem extends Component {
 // PropTypes
 Todoitem.propTypes = {
   todo: PropTypes.object.isRequired
+};
+
+const btnStyle = {
+    background: '#ff0000',
+    color: '#fff',
+    boreder: 'none',
+    padding: '5px 9px',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    float: 'right'
 };
 
 
