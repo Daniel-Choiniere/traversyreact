@@ -24,12 +24,16 @@ class App extends Component {
     ]
   }
   
+  markComplete = () => {
+    console.log("Hello");
+  }
+  
   render() {
     // console.log(this.state.todos);
     return (
       // in JSX cannot use class need to use className
       <div className="App">
-        <Todos todos={this.state.todos} />
+        <Todos todos={this.state.todos} markComplete={this.markComplete}/>
       </div>
     );
   }
