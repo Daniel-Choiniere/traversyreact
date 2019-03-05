@@ -1,3 +1,5 @@
+// this the main App page where all JSX and React components will be rendered.  
+
 import React, { Component } from 'react';
 import Header from './components/layout/header'
 import Todos from './components/Todos';
