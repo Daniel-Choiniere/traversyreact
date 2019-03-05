@@ -39,9 +39,14 @@ class App extends Component {
     }) });
   }
   
-    // delete a todo task -----------------------------------                                         s
+    // delete a todo task -----------------------------------                                 
     delTodo = (id) => {
-      this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id )] })
+      this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id )] });
+    }
+  
+    // Add a Todo
+    addTodo = (title) => {
+      console.log(title);
     }
   
   render() {
@@ -51,7 +56,7 @@ class App extends Component {
       <div className="App">
         <div className="container">
           <Header />
-          <AddTodo />
+          <AddTodo addTodo={ this.addTodo }/>
           {/* markComplete can now be called without .props and be defined in this file (see above) */}
           <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
         </div>
