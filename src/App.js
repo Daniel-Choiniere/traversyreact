@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import Header from './components/layout/header'
 import Todos from './components/Todos';
+import AddTodo from './components/AddTodo';
+
 import './App.css';
 
 
@@ -37,7 +39,7 @@ class App extends Component {
     }) });
   }
   
-    // delete a todo task
+    // delete a todo task -----------------------------------                                         s
     delTodo = (id) => {
       this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id )] })
     }
@@ -47,11 +49,13 @@ class App extends Component {
     return (
       // in JSX cannot use class need to use className
       <div className="App">
-        <Header />
-      
-      {/* markComplete can now be called without .props and be defined in this file (see above) */}
-        <Todos todos={this.state.todos} markComplete={this.markComplete} 
-        delTodo={this.delTodo} />
+        <div className="container">
+          <Header />
+          <AddTodo />
+          {/* markComplete can now be called without .props and be defined in this file (see above) */}
+          <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
+        </div>
+        
       </div>
     );
   }
