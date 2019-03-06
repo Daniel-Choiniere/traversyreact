@@ -1,9 +1,12 @@
 // this the main App page where all JSX and React components will be rendered.  
 
 import React, { Component } from 'react';
-import Header from './components/layout/header'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Header from './components/layout/header';
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
+import About from './components/pages/about';
+import uuid from 'uuid';
 
 import './App.css';
 
@@ -12,17 +15,17 @@ class App extends Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuid.v4(),
         title: 'Take out the trash',
         completed: false
       }, 
      {
-        id: 2,
+        id: uuid.v4(),
         title: 'Dinner with the wifey',
         completed: false
       },   
      {
-        id: 3,
+        id: uuid.v4(),
         title: 'Meeting with da boss',
         completed: false
       }
@@ -44,10 +47,10 @@ class App extends Component {
       this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id )] });
     }
   
-    // Add a Todo
+    // Add a Todo -------------------------------------------
     addTodo = (title) => {
       const newTodo = {
-        id: 4,
+        id: uuid.v4(),
         title: title,
         completed: false
       };
@@ -55,18 +58,23 @@ class App extends Component {
     }
   
   render() {
-    // console.log(this.state.todos);
     return (
-      // in JSX cannot use class need to use className
-      <div className="App">
-        <div className="container">
-          <Header />
-          <AddTodo addTodo={ this.addTodo }/>
-          {/* markComplete can now be called without .props and be defined in this file (see above) */}
-          <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
+      <Router>
+        <div className="App">
+          <div className="container">
+            <Header />
+            {/* adding exact to the path makes only the selected paths show up. i.e. when you go to /about path only abput info is displayed */}
+            <Route exact path="/" render={props => (
+            <React.Fragment>
+               <AddTodo addTodo={ this.addTodo }/>
+              {/* markComplete can now be called without .props and be defined in this file (see above) */}
+              <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
+            </React.Fragment>
+          )} />
+            <Route path="/about" component={About} />
+          </div>
         </div>
-        
-      </div>
+      </Router>
     );
   }
 }
