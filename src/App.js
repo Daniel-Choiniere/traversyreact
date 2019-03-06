@@ -7,29 +7,19 @@ import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 import About from './components/pages/about';
 import uuid from 'uuid';
+import axios from 'axios';
 
 import './App.css';
 
 
 class App extends Component {
   state = {
-    todos: [
-      {
-        id: uuid.v4(),
-        title: 'Take out the trash',
-        completed: false
-      }, 
-     {
-        id: uuid.v4(),
-        title: 'Dinner with the wifey',
-        completed: false
-      },   
-     {
-        id: uuid.v4(),
-        title: 'Meeting with da boss',
-        completed: false
-      }
-    ]
+    todos: []
+  }
+    
+  componentDidMount() {
+    axios.get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+      .then(res => this.setState({ todos: res.data }));
   }
     
     //toggles complete - when a task checkbox is selected a line goes through the task, or the line goes away if unselected
